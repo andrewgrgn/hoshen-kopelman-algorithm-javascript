@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hoshen-Kopelman algorithm - JavaScript implementation</title>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/unsemantic/1.2.3/unsemantic-grid-responsive.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<h1>Hoshen–Kopelman algorithm - JavaScript implementation</h1>
+<div class="grid-container">
+    <div class="grid-50">
+        <div class="grid" id="pre-scan-grid"></div>
+    </div>
+    <div class="grid-50">
+        <div class="grid grid-50" id="post-scan-grid"></div>
+    </div>
+</div>
+
+<script src="js/rasterAndLabel.js"></script>
+<script type="text/javascript">
+    let cssText = '';
+    const colors = ["blue", "red", "darkslategray", "darkmagenta", "darkviolet", "aqua", "brown", "coral", "darkred",
+        "hotpink", "midnightblue"];
+
+    colors.forEach((color, index) => {
+        cssText += `.grid .row .col.color-${index + 1} { background: ${color};}\r\n`;
+    });
+
+    const styleTag = document.createElement('style');
+    styleTag.textContent = cssText;
+
+    document.head.append(styleTag);
+
+</script>
+<script type="text/javascript">
+    window.onload = function () {
+        const grid = [
+            [true, false, false, true, false, false],
+            [false, true, true, true, true, false],
+            [false, false, true, false, false, false],
+            [true, true, false, true, true, false],
+            [false, false, true, true, false, true],
+            [false, false, false, false, true, true],
+        ];
+
+        const postScanGrid = rasterAndLabel(grid);
+
+        /* Code for displaying the results */
+        const gridElement = document.getElementById("pre-scan-grid");
+        gridElement.style.width = `${grid[0].length * 40}px`;
+        grid.forEach(row => {
+            const divRowElement = document.createElement('div');
+            divRowElement.classList.add("row");
+            row.forEach(col => {
+                const divColElement = document.createElement('div');
+                divColElement.classList.add("col");
+
+                if (col) {
+                    divColElement.classList.add("occupied");
+                }
+
+                divRowElement.appendChild(divColElement);
+            });
+            gridElement.appendChild(divRowElement);
+        });
+
+        const postScanGridElement = document.getElementById("post-scan-grid");
+        postScanGridElement.style.width = `${grid[0].length * 40}px`;
+        postScanGrid.forEach(row => {
+            const divRowElement = document.createElement('div');
+            divRowElement.classList.add("row");
+            row.forEach(col => {
+                const divColElement = document.createElement('div');
+                divColElement.classList.add("col");
+
+                if (col) {
+                    divColElement.classList.add("color-" + col);
+                    divColElement.innerText = col;
+                }
+
+                divRowElement.appendChild(divColElement);
+            });
+            postScanGridElement.appendChild(divRowElement);
+        });
+    };
+
+</script>
+</body>
+</html>
