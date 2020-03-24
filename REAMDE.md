@@ -12,6 +12,8 @@ If you would like to use the implementation, the code is inside of `rasterAndLab
 
 Input array:
 
+|       |       |       |       |       |       |
+|-------|-------|-------|-------|-------|-------|
 | true  | false | false | true  | false | false |
 | false | true  | true  | true  | true  | false |
 | false | false | true  | false | false | false |
@@ -21,6 +23,8 @@ Input array:
 
 Result array:
 
+|       |       |       |       |       |       |
+|-------|-------|-------|-------|-------|-------|
 | 1     |       |       | 2     |       |       |
 |       | 2     | 2     | 2     | 2     |       |
 |       |       | 2     |       |       |       |
